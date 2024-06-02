@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %} Burgers {% endblock %}
+ 
+{% load static %} 
+
+{% block content %}
+    <div class="container_fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <h2 class="title">Our Burgers</h2> 
+                <div class="row">
+                    {% for burger in burgers %}
+                    <div class="col-md-6 p-4">
+                        <img class="picture" src="{{ burger.pImage }}">
+                        <h4 class="item-title" id="bur{{burger.id}}">{{ burger.name }}</h4>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input class="form-check-input" name="burger{{burger.id}}" value="{{ burger.priceM }}" type="radio" checked>
+                                {{ burger.priceM }} Rs
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input class="form-check-input" name="burger{{burger.id}}" value="{{ burger.priceL }}" type="radio">
+                                {{ burger.priceL }} Rs
+                            </label>
+                        </div>
+                        {% if user.is_authenticated  %}
+                        <div>
+                          <button class="btn-info mt-3" onclick="addBurger('{{burger.id}}')">Add to Cart</button>
+                        </div>
+            
+                      {% else %}
+                        <div >
+                          <button class="btn-info mt-3"><a href="{% url 'fastfood:login_view' %}" >Add to Cart </a> </button>
+                        </div>
+                      {% endif %}
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-4 Orders">
+                <div class="bg-dark p-4 rounded text-light">
+                    <h2 class="text-center">Orders List</h2>
+                    <ul id="bcart"></ul>
+                    <h4 class="text-right" id="btotal">Total: 0 Rs</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Make sure the script is loaded at the end -->
+    <script src="{% static 'fastfood/js/borders.js' %}"></script>
+{% endblock %}

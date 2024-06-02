@@ -1,0 +1,64 @@
+.logo{
+    margin-bottom:10px;
+}
+
+.home{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url("../img/home.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+.title{
+    margin: 50px;
+    text-align: center;
+}
+
+.picture {
+    width: 200px;              /* Set the width of the image to be smaller */
+    height: 150px;             /* Set a fixed height for consistency */
+    border-radius: 50%;        /* Make the image circular */
+    object-fit: cover;         /* Ensure the image covers the container without stretching */
+    margin: 5px;               /* Margin around the images */
+}
+
+.col-md-6 {
+    padding: 2px;              /* Minimal padding inside the columns */
+    display: flex;             /* Use flexbox for alignment */
+    justify-content: center;   /* Center the content horizontally */
+    align-items: center;       /* Center the content vertically */
+    flex-direction: column;    /* Stack the items vertically */
+    margin-bottom: 5px;        /* Reduce the space between rows */
+}
+
+.item-title{
+    text-align: center;
+
+}
+
+.orders {
+    position: relative;
+    top: 100px;
+    line-height: 200%;
+}
+
+.del {
+    position: relative;
+    right: 30px;
+    background-color: red;
+    color: white;
+    width: 30px;
+    height: 2px;
+    align-items: center;
+    justify-content: center;
+}
+
+.li {
+    display: flex;
+}

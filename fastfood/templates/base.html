@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/?size=48&id=82486&format=png&color=000000">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'fastfood/css/style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <!-- Brand/logo -->
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="https://img.icons8.com/?size=48&id=82486&format=png&color=000000" class="logo"/>
+        </a>
+        
+        <!-- Links -->
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link {% if active_link == 'index' %}active{% endif %}" href="{% url 'index' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if active_link == 'pizza' %}active{% endif %}" href="{% url 'fastfood:pizzas' %}">Pizzas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if active_link == 'burger' %}active{% endif %}" href="{% url 'fastfood:burgers' %}">Burger</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mt-2">
+                    <a href="{% url 'fastfood:order' %}" class="{% if active_link == 'burger' %}active{% endif %}">
+                        <img src="https://img.icons8.com/?size=30&id=8chNl15hy6jY&format=png&color=000000"/>
+                        <span id='cart'></span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    
+                    {% if user.is_authenticated  %}
+                        <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="bg-light ml-2 rounded-circle" src="https://img.icons8.com/?size=24&id=22396&format=png&color=000000"/>
+                            <br> {{ user.username}}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <a href="{% url 'fastfood:login_view' %}" class="dropdown-item">Account</a>
+                            <a href="{% url 'fastfood:logout' %}" class="dropdown-item">Logout</a>
+                        </div>
+                    {% else %}
+                             
+                        <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="bg-light ml-2 rounded-circle" src="https://img.icons8.com/?size=24&id=22396&format=png&color=000000"/>
+                            <br>User
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <a href="{% url 'fastfood:login_view' %}" class="dropdown-item">Login</a>
+                            <a href="{% url 'fastfood:signup' %}" class="dropdown-item">Sign Up</a>
+                        </div>
+                        
+                    {% endif %}
+                   
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div>
+        {% block content %}{% endblock %}
+        <div class="container mt-3 w-4">
+            {% if messages %}
+                <div id="message-container">
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Full version of jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Your custom script -->
+    <script src="{% static 'fastfood/js/cart.js' %}">
+
+</body>
