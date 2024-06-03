@@ -16,7 +16,17 @@ from django.contrib.messages import constants as messages
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+APPEND_SLASH = True
 
+CORS_ORIGIN_ALLOW_ALL = 'ALL'
+CORS_ALLOW_METHODS = (
+        'GET',
+        'POST',
+        'PUT',
+        'PATCH',
+        'DELETE',
+        'OPTIONS'
+    )
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 
 MESSAGE_TAGS = {
@@ -57,7 +67,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'fastfood',
+    
     
 ]
 
@@ -148,6 +160,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTHENTICATION_BACKENDS = [
-    'fastfood.backend.EmailBackend',  # Replace 'your_app' with the name of your app
-    'django.contrib.auth.backends.ModelBackend',  # Keep the default backend
+    'fastfood.backend.EmailBackend',  
+    'django.contrib.auth.backends.ModelBackend',  
 ]
