@@ -17,23 +17,19 @@ import logging
 
 logger = logging.getLogger('django')
 
-
-
-
-
 # ====================================
 # ***** POST : Create Order Api *****
 # ====================================
 class OrderCreate(APIView):
     def post(self, request, format=None):
-        logger.info("Received a POST request to create an order.")
+        logger.info("Received a POST request to create an order.") #informational message
         serializer = OrderSerializer(data=request.data)
         
         if serializer.is_valid():
             logger.info("Order data is valid. Saving the order.")
             order = serializer.save()  # No user association since we are not requiring authentication
             logger.info(f"Order {order.id} created successfully.")
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)# Http status code 
         
         logger.error("Invalid order data received.")
         logger.error(serializer.errors)
@@ -95,8 +91,6 @@ class BurgerDelete(APIView):
             logger.warning(f"Burger ID: {id} not found")
             return Response({'error': 'Burger not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    def get(self, request, id, format=None):
-        logger.info(f"Received GET request for Burger ID: {id}")
         
         
  # ====================================
@@ -112,17 +106,6 @@ class PizzaDelete(APIView):
             pizza.delete()
             logger.info(f"Deleted Pizza ID: {id}")
             return Response(status=status.HTTP_204_NO_CONTENT)
-        except Pizza.DoesNotExist:
-            logger.warning(f"Pizza ID: {id} not found")
-            return Response({'error': 'Pizza not found'}, status=status.HTTP_404_NOT_FOUND)
-
-    def get(self, request, id, format=None):
-        logger.info(f"Received GET request for Pizza ID: {id}")
-        try:
-            pizza = Pizza.objects.get(id=id)
-            logger.info(f"Found Pizza: {pizza}")
-            serializer = PizzaSerializer(pizza)
-            return Response(serializer.data, status=status.HTTP_200_OK)
         except Pizza.DoesNotExist:
             logger.warning(f"Pizza ID: {id} not found")
             return Response({'error': 'Pizza not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -144,19 +127,9 @@ class OrderDetail(APIView):
             logger.warning(f"Order ID: {id} not found")
             return Response({'error': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    def get(self, request, id, format=None):
-        logger.info(f"Received GET request for Order ID: {id}")
-        try:
-            order = Order.objects.get(id=id)
-            logger.info(f"Found Order: {order}")
-            serializer = OrderSerializer(order)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        except Order.DoesNotExist:
-            logger.warning(f"Order ID: {id} not found")
-            return Response({'error': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
-        
-        
-  # ====================================
+   
+ 
+# ====================================
 # ****  get Pizza Api ****
 # ====================================       
         
@@ -216,8 +189,7 @@ class GetOrderDetail(APIView):
         except Order.DoesNotExist:
             logger.warning("No orders found")
             return Response({'error': 'No orders found'}, status=status.HTTP_404_NOT_FOUND)
-
-          
+     
 
 def index(request):
     ctx = {'active_link': 'index'}
@@ -265,17 +237,15 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # Automatically log in the user after signup
-            # login(request, user)
             messages.success(request, 'Signup successful! You are now logged in.')
-            print("Form is valid and user is logged in.")  # Debug statement
-            return redirect('index')  # Redirect to the success page
+            print("Form is valid and user is logged in.")  
+            return redirect('index')  
         else:
             messages.error(request, 'There was an error in your signup form. Please try again.')
-            print("Form is invalid.")  # Debug statement
+            print("Form is invalid.") 
     else:
         form = SignUpForm()
-        print("GET request - rendering signup form.")  # Debug statement
+        print("GET request - rendering signup form.")  
     
     return render(request, 'signup.html', {'form': form})
 
@@ -298,7 +268,6 @@ def login_view(request):
                 messages.error(request, 'Invalid email or password. Please try again.')
     else:
         form = LoginForm()
-    
     return render(request, 'login.html', {'form': form})
 
 def success1(request):

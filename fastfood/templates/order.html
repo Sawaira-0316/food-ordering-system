@@ -41,7 +41,7 @@
 
     function orderRestApi() {
         var messageElement = document.getElementById('message');
-        var orders = JSON.parse(localStorage.getItem('orders')) || [];
+        var orders = JSON.parse(localStorage.getItem('orders')) || []; //from local storage get all the order 
         var msg = messageElement.value;  // Correctly capture the value from the input field
     
         // Assuming your REST API endpoint for creating orders is /fastfood/createOrder/

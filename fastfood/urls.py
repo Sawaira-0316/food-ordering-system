@@ -6,20 +6,18 @@ app_name = "fastfood"
 
 urlpatterns = [
     path('pizza/', views.pizza, name="pizzas"),
-    path('burger/', views.burger, name='burgers'),  # Correct path to 'burger/'
+    path('burger/', views.burger, name='burgers'),  
     path('order/', views.order, name='order'),
     path('success/', views.success, name='success'),
     path('signup/', views.signup, name='signup'),
     path('login_view/', views.login_view, name='login_view'),
     path('logout/', views.logout_view, name='logout'),
-    # path('admin/data/', views.admin_view, name='admin')
+   
     
     # Rest api url Post
-    path('createOrder/', views.OrderCreate.as_view(), name='order-create'),  # Ensure the trailing slash
     path('createpizza/', views.PizzaCreate.as_view(), name='create-pizza'),
     path('createburger/', views.BurgerCreate.as_view(), name='create-burger'),
-    path('delete/<int:id>/burger/', views.BurgerDelete.as_view(), name="delete-burger"),
-    
+    path('createOrder/', views.OrderCreate.as_view(), name='order-create'),
     
     # delete api
       path('delete/<int:id>/pizza/', views.PizzaDelete.as_view(), name="delete-pizza"), 
