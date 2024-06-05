@@ -27,9 +27,9 @@ class OrderCreate(APIView):
         
         if serializer.is_valid():
             logger.info("Order data is valid. Saving the order.")
-            order = serializer.save()  # No user association since we are not requiring authentication
+            order = serializer.save()  
             logger.info(f"Order {order.id} created successfully.")
-            return Response(serializer.data, status=status.HTTP_201_CREATED)# Http status code 
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         
         logger.error("Invalid order data received.")
         logger.error(serializer.errors)
@@ -209,7 +209,7 @@ def burger(request):
 
 @csrf_exempt
 def order(request):
-    request.session.set_expiry(0)  # Session will expire when the browser is closed
+    request.session.set_expiry(0)  
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest' and request.method == 'POST':
         note = request.POST.get('note')
         order = request.POST.get('order')
@@ -263,7 +263,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, 'Login successful!')
-                return redirect('index')  # Redirect to a success page.
+                return redirect('index') 
             else:
                 messages.error(request, 'Invalid email or password. Please try again.')
     else:

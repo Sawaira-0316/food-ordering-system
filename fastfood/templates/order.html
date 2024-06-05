@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div id="orders" class="row">
-                <!-- Orders will be inserted here dynamically -->
+             
             </div>
             <h2 id="total">Total: </h2>
         </div>
@@ -41,50 +41,48 @@
 
     function orderRestApi() {
         var messageElement = document.getElementById('message');
-        var orders = JSON.parse(localStorage.getItem('orders')) || []; //from local storage get all the order 
-        var msg = messageElement.value;  // Correctly capture the value from the input field
-    
-        // Assuming your REST API endpoint for creating orders is /fastfood/createOrder/
+        var orders = JSON.parse(localStorage.getItem('orders')) || []; 
+        var msg = messageElement.value;  
+  
         var ur = '/fastfood/createOrder/'; 
     
         orders.forEach(function(order) {
             var orderData = {
                 name: order.name,
                 size: order.size,
-                price: parseFloat(order.price),  // Ensure the price is parsed as a float
-                orderBy: 'Sawaira',  // Replace with actual user information if needed
-                note: msg  // Include additional data if needed
+                price: parseFloat(order.price),  
+                orderBy: 'Sawaira',  
+                note: msg  
             };
     
             fetch(ur, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken')  // Ensure CSRF token is included
+                    'X-CSRFToken': getCookie('csrftoken')  
                 },
                 body: JSON.stringify(orderData)
             })
             .then(response => {
-                console.log("Response status:", response.status);  // Check response status
+                console.log("Response status:", response.status);  
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
             .then(data => {
-                console.log("Response data:", data);  // Check response data
+                console.log("Response data:", data);  
                 alert("Data is saved successfully", data);
-                localStorage.removeItem('orders');  // Clear orders from localStorage after successful save
-                localStorage.removeItem('total');  // Clear total from localStorage after successful save
-                window.location.replace('/fastfood/success/'); // Redirect to success page on success
+                localStorage.removeItem('orders');  
+                localStorage.removeItem('total');  
+                window.location.replace('/fastfood/success/');
             })
             .catch((error) => {
-                console.error('Error:', error);  // Check for errors
+                console.error('Error:', error);  
             });
         });
     }
-    
-    // Function to get the CSRF token from the cookie
+ 
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
